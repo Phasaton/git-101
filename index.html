@@ -1,18 +1,344 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="th">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ARI FOOTBALL - PERSONALIZE STUDIO บริการปักชื่อรองเท้าสตั๊ดและสกรีนชื่อเบอร์เสื้อบอลลิขสิทธิ์แท้แบบเรียลไทม์">
+  <title>ARI FOOTBALL | Personalize Studio - ออกแบบสตั๊ด & เสื้อบอลแท้</title>
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Hello, World!</h1>
-    <h2>1234</h2 >
-        
-    <p>Branch develop</p>
 
-    <script>
-        console.log("Hello, World!");
-    </script>
+  <!-- Header Navigation -->
+  <header class="header">
+    <div class="container header-container">
+      <a href="#" class="logo">
+        <span class="logo-badge">ARI</span>
+        <span class="logo-text">FOOTBALL <span>STUDIO</span></span>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="#studio" class="nav-link active">PERSONALIZE STUDIO</a></li>
+        <li><a href="#gallery" class="nav-link">ตัวอย่างผลงาน</a></li>
+        <li><a href="#why-us" class="nav-link">ทำไมต้อง ARI</a></li>
+        <li><a href="#branches" class="nav-link">สาขาให้บริการ</a></li>
+      </ul>
+
+      <div class="header-actions">
+        <button class="btn-icon" id="cart-btn" aria-label="Open Shopping Cart">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span class="cart-count" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Main Interactive Studio Section -->
+    <section class="studio-section" id="studio">
+      <div class="container">
+        
+        <div class="studio-header">
+          <div class="badge badge-outline" style="margin-bottom: 12px;">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> LIVE CUSTOMIZATION SIMULATOR
+          </div>
+          <h1 class="studio-title">PERSONALIZE <span>YOUR GEAR</span></h1>
+          <p class="studio-subtitle">
+            สร้างสรรค์เอกลักษณ์ให้รองเท้าสตั๊ดและเสื้อแข่งสโมสรของคุณ ด้วยเทคโนโลยี UV Transfer, Laser & สกรีนมาตรฐานระดับโลก
+          </p>
+        </div>
+
+        <div class="studio-grid">
+          
+          <!-- Left Column: Interactive Live Stage -->
+          <div class="preview-stage">
+            
+            <!-- Category Tabs Switcher -->
+            <div class="category-tabs">
+              <button class="tab-btn active" data-category="boot">
+                <i class="fa-solid fa-shoe-prints"></i> รองเท้าสตั๊ด (Boots)
+              </button>
+              <button class="tab-btn" data-category="jersey">
+                <i class="fa-solid fa-shirt"></i> เสื้อแข่ง (Jersey)
+              </button>
+            </div>
+
+            <!-- SVG Render Canvas -->
+            <div class="canvas-wrapper">
+              <svg id="stage-svg" class="canvas-svg" viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg">
+                <!-- SVG Content will be dynamically populated/updated by app.js -->
+              </svg>
+            </div>
+
+            <!-- View Angle Switcher -->
+            <div class="view-controls" id="view-controls">
+              <button class="view-btn active" data-view="side">มุมข้าง (Side)</button>
+              <button class="view-btn" data-view="heel">ส้นเท้า (Heel)</button>
+              <button class="view-btn" data-view="collar">หุ้มข้อ (Collar)</button>
+            </div>
+
+            <!-- Price & Info Bar -->
+            <div class="price-display-bar">
+              <div>
+                <div class="price-label">ราคารวมโดยประมาณ (Base + Custom)</div>
+                <div class="badge badge-volt" id="model-badge-tag">ARI PHANTOM SPEED FG</div>
+              </div>
+              <div class="price-val" id="total-price-display">฿3,790</div>
+            </div>
+
+          </div>
+
+          <!-- Right Column: Customization Controls Panel -->
+          <div class="controls-panel">
+            
+            <!-- Step 1: Select Model -->
+            <div class="panel-section">
+              <div class="section-label">
+                1. เลือกรุ่นสินค้า <span class="step">MODEL</span>
+              </div>
+              
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">รุ่นสินค้า (Item Model)</label>
+                <div class="model-selector" id="model-selector">
+                  <!-- Dynamically generated -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 2: Select Size -->
+            <div class="panel-section">
+              <div class="section-label">
+                2. เลือกไซส์สินค้า <span class="step">SIZE</span>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label" id="size-label">ไซส์รองเท้า (Boot Size)</label>
+                <div class="size-selector" id="size-selector">
+                  <!-- Dynamically generated size pills -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 3: Custom Text & Number -->
+            <div class="panel-section">
+              <div class="section-label">
+                3. ข้อความ & หมายเลข <span class="step">TEXT & NO.</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" id="name-input-label">ชื่อที่ต้องการปัก/สกรีน (Name Text)</label>
+                <input type="text" class="form-input" id="custom-name" value="ARISON" maxlength="12" placeholder="พิมพ์ชื่อภาษาอังกฤษหรือไทย">
+              </div>
+
+              <div class="form-group" id="number-input-group">
+                <label class="form-label">หมายเลขเสื้อ (Jersey Number)</label>
+                <input type="number" class="form-input" id="custom-number" value="10" min="1" max="99">
+              </div>
+            </div>
+
+            <!-- Step 4: Font Style & Color Swatches -->
+            <div class="panel-section">
+              <div class="section-label">
+                4. ฟอนต์ & โทนสี <span class="step">STYLE</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">รูปแบบฟอนต์ (Font Family)</label>
+                <select class="form-select" id="font-select">
+                  <option value="Prompt, sans-serif">ARISans Modern (มาตรฐาน)</option>
+                  <option value="'Impact', sans-serif">Victory Bold (ทรงเข้มดุดัน)</option>
+                  <option value="'Courier New', monospace">Athletic Block (ทรงเหลี่ยมสปอร์ต)</option>
+                  <option value="'Georgia', serif">Classic Heritage (ทรงคลาสสิก)</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;">
+                <label class="form-label">สีข้อความ / สกรีน (Color Tone)</label>
+                <div class="color-swatches" id="color-swatches">
+                  <!-- Swatches dynamically loaded -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Step 5: Placement Zone & Extras -->
+            <div class="panel-section">
+              <div class="section-label">
+                5. ตำแหน่ง & ออปชันเสริม <span class="step">ZONE & ARMS</span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">ตำแหน่งการปัก/สกรีน (Placement Zone)</label>
+                <select class="form-select" id="zone-select">
+                  <!-- Options updated by category -->
+                </select>
+              </div>
+
+              <div class="form-group" style="margin-bottom: 0;" id="extra-patch-group">
+                <label class="form-label">ติดอาร์มพิเศษ (Extra Arm Patch)</label>
+                <select class="form-select" id="patch-select">
+                  <option value="none">ไม่ติดอาร์ม (None)</option>
+                  <option value="thai-league">+ อาร์ม Thai League 2026 (฿150)</option>
+                  <option value="champions-league">+ อาร์ม UEFA Champions League (฿250)</option>
+                  <option value="ari-custom-flag">+ อาร์มธงชาติไทยแท้ Ari Edition (฿120)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Submit Action -->
+            <button class="btn-primary" id="add-to-cart-btn">
+              <i class="fa-solid fa-cart-plus"></i> เพิ่มรายการปรับแต่งลงตะกร้า - <span id="btn-price">฿3,790</span>
+            </button>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Demo Gallery Section -->
+    <section class="gallery-section" id="gallery">
+      <div class="container">
+        
+        <div class="section-header">
+          <div>
+            <div class="badge badge-volt" style="margin-bottom: 8px;">INSPIRED DESIGNS</div>
+            <h2 class="section-title">ตัวอย่างผลงาน PERSONALIZED GEAR</h2>
+          </div>
+
+          <div class="gallery-filters">
+            <button class="filter-btn active" data-filter="all">ทั้งหมด</button>
+            <button class="filter-btn" data-filter="boot">สตั๊ดปักชื่อ/UV</button>
+            <button class="filter-btn" data-filter="jersey">เสื้อแข่งสกรีนเบอร์</button>
+          </div>
+        </div>
+
+        <div class="gallery-grid" id="gallery-grid">
+          <!-- Dynamically populated cards -->
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Trust & Features Section -->
+    <section class="trust-section" id="why-us">
+      <div class="container">
+        <div class="trust-grid">
+          
+          <div class="trust-card">
+            <i class="fa-solid fa-shield-halved trust-icon"></i>
+            <h3 class="trust-title">สินค้าลิขสิทธิ์แท้ 100%</h3>
+            <p class="trust-desc">รับประกันสินค้าแบรนด์แท้จากช็อปสโมสรและผู้ผลิตชั้นนำระดับโลก</p>
+          </div>
+
+          <div class="trust-card">
+            <i class="fa-solid fa-bolt trust-icon"></i>
+            <h3 class="trust-title">เทคโนโลยี UV & Laser</h3>
+            <p class="trust-desc">งานปักและสกรีนคมชัดสูง ทนทาน ไม่หลุดล่อน และไม่ทำให้วัสดุเสียทรง</p>
+          </div>
+
+          <div class="trust-card">
+            <i class="fa-solid fa-truck-fast trust-icon"></i>
+            <h3 class="trust-title">จัดส่งด่วนทั่วไทย</h3>
+            <p class="trust-desc">จัดส่งฟรีกระเป๋าพรีเมียม Ari พร้อมแพ็คเกจกันกระแทกอย่างดี</p>
+          </div>
+
+          <div class="trust-card">
+            <i class="fa-solid fa-store trust-icon" id="branches"></i>
+            <h3 class="trust-title">มีหน้าร้าน 5 สาขาหลัก</h3>
+            <p class="trust-desc">พร้อมให้บริการรับชมสินค้าและปรับแต่งสดที่ Siam Square, One Bangkok, Mega Bangna</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Slide-out Cart Drawer -->
+  <div class="cart-backdrop" id="cart-backdrop"></div>
+  <aside class="cart-drawer" id="cart-drawer">
+    <div class="cart-header">
+      <div class="cart-title">
+        <i class="fa-solid fa-bag-shopping" style="color: var(--accent-volt);"></i> ตะกร้าสินค้าของคุณ
+      </div>
+      <button class="cart-close-btn" id="cart-close-btn">&times;</button>
+    </div>
+
+    <div class="cart-body" id="cart-body">
+      <!-- Items dynamically populated -->
+    </div>
+
+    <div class="cart-footer">
+      <div class="cart-subtotal">
+        <span>ราคารวมทั้งหมด:</span>
+        <span id="cart-subtotal-val" style="color: var(--accent-volt);">฿0</span>
+      </div>
+      <button class="btn-primary" id="checkout-btn" style="font-size: 1rem; padding: 14px;">
+        ดำเนินการชำระเงิน <i class="fa-solid fa-arrow-right"></i>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div>
+          <a href="#" class="logo" style="margin-bottom: 16px;">
+            <span class="logo-badge">ARI</span>
+            <span class="logo-text">FOOTBALL</span>
+          </a>
+          <p>ผู้นำด้านอุปกรณ์ฟุตบอล เสื้อแข่งสโมสร และบริการ Personalization ปักชื่อ สกรีนเบอร์ อันดับ 1 ของประเทศไทย</p>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">หมวดหมู่สินค้า</h4>
+          <ul class="footer-links">
+            <li><a href="#">รองเท้าสตั๊ด (Football Boots)</a></li>
+            <li><a href="#">เสื้อแข่งทีมชาติ & สโมสร</a></li>
+            <li><a href="#">อุปกรณ์ผู้รักษาประตู</a></li>
+            <li><a href="#">สินค้า Ari Gear Official</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">บริการลูกค้า</h4>
+          <ul class="footer-links">
+            <li><a href="#">คำแนะนำไซส์รองเท้า</a></li>
+            <li><a href="#">ขั้นตอนบริการ Personalize</a></li>
+            <li><a href="#">การรับประกันสินค้าแท้</a></li>
+            <li><a href="#">ติดตามสถานะคำสั่งซื้อ</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">สาขาที่เปิดให้บริการ</h4>
+          <ul class="footer-links">
+            <li><i class="fa-solid fa-location-dot" style="color: var(--accent-volt);"></i> Siam Square Soi 6</li>
+            <li><i class="fa-solid fa-location-dot" style="color: var(--accent-volt);"></i> One Bangkok Store</li>
+            <li><i class="fa-solid fa-location-dot" style="color: var(--accent-volt);"></i> Mega Bangna</li>
+            <li><i class="fa-solid fa-location-dot" style="color: var(--accent-volt);"></i> Zpell Future Park</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        &copy; 2026 Ari Football Store. All rights reserved. Designed with Modern Dark Sport Experience.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
 </body>
 </html>
